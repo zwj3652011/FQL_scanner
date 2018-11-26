@@ -47,6 +47,8 @@ dot_ = Literal(".")
 hashtag_ = Literal("#")
 slash_ = Literal("-")
 equal_ = Literal("=")
+exclaim_ = Literal("!")
+dollor_ = Literal("$")
 
 # format of version number for AS clause
 version_ = Combine(OneOrMore(Optional(dot_) + Word(nums)))
@@ -55,8 +57,8 @@ feature_ = Combine(OneOrMore(Word(alphanums) \
         + Optional(OneOrMore(underline_^space_))))
 # this is for the keywords to search 
 keyword_ = Optional(OneOrMore(underline_^leftb_^hashtag_^space_^dot_^slash_\
-        ^equal_)) + Word(alphanums) + Optional(OneOrMore(underline_^leftb_\
-        ^dot_^slash_^equal_))
+        ^equal_^exclaim_^dollor_)) + Word(alphanums) + Optional(OneOrMore(\
+        underline_^leftb_^dot_^slash_^equal_))
 keywords_ = OneOrMore(Combine(OneOrMore(keyword_)) \
         + Optional(space_) + Optional(or_^and_) + Optional(space_))
 

@@ -8,7 +8,7 @@ Q3: What kind of process topology are used?
 FQL: LIST (CHECK (MPI_CART_Create) WHERE(*) AS (Cartesian), CHECK (MPI_GRAPH_Create) WHERE(*) AS (Graph), CHECK (MPI_DIST_GRAPH_CREATE_Adjacent || MPI_DIST_GRAPH_Create) WHERE(*) AS (Distributed Graph))
 
 Q4: Is OpenMP used? 
-FQL: CHECK (pragma omp) WHERE (*) AS (OpenMP)
+FQL: CHECK (!$OMP || pragma omp) WHERE (*) AS (OpenMP)
 
 Q5: What OpenMP scheduling method is used? 
 FQL: LIST (CHECK (schedule(static) WHERE(*) AS (Static), CHECK (schedule(dynamic) WHERE(*) AS (Dynamic), CHECK (schedule(guided)  WHERE(*) AS (Guided), CHECK (schedule(auto) WHERE(*) AS (Auto), CHECK (schedule(runtime) WHERE(*) AS (Runtime))
@@ -23,7 +23,7 @@ Q8: Does it support multiple GPUs?
 FQL: CHECK (cudaSetDevice || cudaGetDeviceCount || cudaGetDevice) WHERE (*) AS (MultipleGPU)
 
 Q9: Is OpenACC used?
-FQL: CHECK (#pragma acc) WHERE (*) AS (OpenACC)
+FQL: CHECK (!$acc || #pragma acc) WHERE (*) AS (OpenACC)
 
 Q10: Does it use hybrid MPI/OpenMP programming?
 FQL: AND (CHECK (mpi.h || use mpi || mpif.h) WHERE (*) AS (MPI), CHECK (#pragma omp) WHERE (*) AS (OpenMP))
